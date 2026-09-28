@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Adestya Levi Romdoni</title>
+    <style>
+        /* Reset dasar */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Background gradasi elegan */
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Kartu konten */
+        .welcome-card {
+            background: rgba(0, 0, 0, 0.35);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 600px;
+            width: 100%;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== MENU NAVIGASI (SURGE STYLE) ===== */
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .menu button {
+            position: relative;
+            background: #0a0a2e;
+            color: #ffffff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            font-weight: 700;
+            font-size: 0.85rem;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .menu button::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            background: linear-gradient(90deg, #00d4ff, #a855f7, #00d4ff);
+            border-radius: 50px;
+            z-index: -1;
+        }
+
+        .menu button .btn-text {
+            position: relative;
+            z-index: 2;
+        }
+
+        .menu button:hover .btn-text {
+            text-shadow: 0 0 5px #00d4ff, 0 0 10px #00d4ff, 0 0 20px #00d4ff;
+            animation: flicker 0.3s infinite;
+        }
+
+        .menu button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.75; }
+        }
+
+        .menu button.active {
+            background: #ffd700;
+            color: #1e3c72;
+        }
+
+        .menu button.active::before {
+            background: linear-gradient(90deg, #ffd700, #ffaa00, #ffd700);
+        }
+
+        .menu button.active .btn-text {
+            text-shadow: none;
+        }
+
+        .menu button.active:hover .btn-text {
+            text-shadow: 0 0 5px #fff, 0 0 10px #fff;
+        }
+
+        /* ===== KONTEN SECTION ===== */
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h1 {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 5px;
+            color: #e0e0e0;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ffffff;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.8);
+        }
+
+        .nickname {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffd700;
+            background: rgba(0, 0, 0, 0.4);
+            display: inline-block;
+            padding: 8px 25px;
+            border-radius: 50px;
+            margin-top: 5px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        p {
+            margin-top: 15px;
+            font-size: 1rem;
+            color: #f0f0f0;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* ===== FOTO PROFIL ===== */
+        .foto-profil {
+            margin: 20px auto 10px auto;
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .foto-profil:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(255, 215, 0, 0.3);
+        }
+
+        .foto-profil img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ===== VIDEO BIO ===== */
+        .video-bio {
+            width: 100%;
+            max-width: 350px;
+            margin: 15px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: #000;
+        }
+
+        .video-bio video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* ===== BIO DATA ===== */
+        .bio-list {
+            text-align: left;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 15px 20px;
+        }
+
+        .bio-item {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .bio-item:last-child {
+            border-bottom: none;
+        }
+
+        .bio-label {
+            width: 40%;
+            color: #ffd700;
+            font-weight: 600;
+        }
+
+        .bio-value {
+            width: 60%;
+            color: #ffffff;
+            word-break: break-word;
+        }
+
+        /* ===== SOSMED ===== */
+        .sosmed-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .sosmed-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .sosmed-item:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .sosmed-item i {
+            font-style: normal;
+            font-size: 1.2rem;
+        }
+
+        .tiktok { background: #000000; }
+        .tiktok:hover { background: #1a1a1a; }
+
+        .instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+        .instagram:hover { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+
+        .telegram { background: #0088cc; }
+        .telegram:hover { background: #0099e6; }
+
+        .whatsapp { background: #25D366; }
+        .whatsapp:hover { background: #20bd5a; }
+
+        /* ===== LAGU FAVORIT ===== */
+        .lagu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .lagu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 16px;
+            background: rgba(0, 0, 0, 0.35);
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: all 0.3s ease;
+            text-align: left;
+        }
+
+        .lagu-item:hover {
+            background: rgba(30, 215, 96, 0.15);
+            border-color: rgba(30, 215, 96, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 18px rgba(30, 215, 96, 0.25);
+        }
+
+        .lagu-icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .lagu-icon.gradien-1 { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .lagu-icon.gradien-2 { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .lagu-icon.gradien-3 { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+        .lagu-icon.gradien-4 { background: linear-gradient(135deg, #fa709a, #fee140); }
+
+        .lagu-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .lagu-judul {
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: #ffffff;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lagu-artis {
+            font-size: 0.8rem;
+            color: #b0b0b0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .lagu-play {
+            font-size: 1.5rem;
+            color: #1ed760;
+            flex-shrink: 0;
+        }
+
+        /* ===== GALERI ===== */
+        .galeri-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .galeri-item {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 215, 0, 0.5);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .galeri-item:hover {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+            z-index: 2;
+        }
+
+        .galeri-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .galeri-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .galeri-caption {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #ffd700;
+            font-weight: 600;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* ===== RESPONSIF HP ===== */
+        @media (max-width: 480px) {
+            h2 { font-size: 1.6rem; }
+            .nickname { font-size: 1.1rem; padding: 6px 18px; }
+            .welcome-card { padding: 20px; }
+            .bio-item { flex-direction: column; gap: 2px; }
+            .bio-label, .bio-value { width: 100%; }
+            .bio-value { padding-left: 5px; }
+            .menu button { padding: 10px 18px; font-size: 0.75rem; }
+            .foto-profil { width: 150px; height: 150px; }
+            .lagu-icon { width: 48px; height: 48px; font-size: 1.5rem; }
+            .lagu-judul { font-size: 0.85rem; }
+            .lagu-artis { font-size: 0.75rem; }
+            .galeri-grid { gap: 10px; }
+            .galeri-caption { font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-card">
+
+        <!-- Section Home -->
+        <div id="home" class="content-section active">
+            <h1>Hai, saya</h1>
+            <h2>Adestya Levi Romdoni</h2>
+            
+            <div class="foto-profil">
+                <img src="https://i.ibb.co.com/wGxcRRy/IMG-20260911-WA0000.jpg" alt="Foto Adestya Levi Romdoni">
+            </div>
+            
+            <div class="nickname">Biasa dipanggil Lipay</div>
+            <p>Selamat datang di halaman web saya.</p>
+        </div>
+
+        <!-- Section Bio Data -->
+        <div id="bio" class="content-section">
+            <h2>📋 Bio Data</h2>
+            <div class="video-bio">
+                <video autoplay muted loop playsinline>
+                    <source src="https://files.catbox.moe/wr5bi5.mp4" type="video/mp4">
+                    Browser kamu tidak mendukung video.
+                </video>
+            </div>
+            <div class="bio-list">
+                <div class="bio-item">
+                    <span class="bio-label">Nama</span>
+                    <span class="bio-value">Adestya Levi Romdoni</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label">Nama Panggilan</span>
+                    <span class="bio-value">Lipay</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label">Tempat/Tanggal Lahir</span>
+                    <span class="bio-value">Jakarta, 08 - 12 - 2009</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label">Hoby</span>
+                    <span class="bio-value">Main Futsal</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label">Cita - cita</span>
+                    <span class="bio-value">Belum diketahui</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label">Minuman Favorit</span>
+                    <span class="bio-value">Kopi ☕</span>
+                </div>
+                <div class="bio-item">
+                    <span class="bio-label">Rokok Favorit</span>
+                    <span class="bio-value">Magnum Filter, Aroma Ice Berry</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section LAGU FAVORIT -->
+        <div id="lagu" class="content-section">
+            <h2>🎵 Lagu Favorit</h2>
+            <div class="lagu-list">
+                <a href="https://open.spotify.com/track/1TMvBhqekWmWJSxpmUMgFz" target="_blank" class="lagu-item">
+                    <div class="lagu-icon gradien-1">🎵</div>
+                    <div class="lagu-info">
+                        <div class="lagu-judul">Tenang</div>
+                        <div class="lagu-artis">Yura Yunita</div>
+                    </div>
+                    <span class="lagu-play">▶</span>
+                </a>
+
+                <a href="https://open.spotify.com/track/3TTZfjYqhTowNALncAmY5v" target="_blank" class="lagu-item">
+                    <div class="lagu-icon gradien-2">🎶</div>
+                    <div class="lagu-info">
+                        <div class="lagu-judul">Masa Ini, Nanti, dan Masa Indah Lainnya</div>
+                        <div class="lagu-artis">Nadin Amizah</div>
+                    </div>
+                    <span class="lagu-play">▶</span>
+                </a>
+
+                <a href="https://open.spotify.com/track/3CeCwYWvdfXbZLXFhBrbnf" target="_blank" class="lagu-item">
+                    <div class="lagu-icon gradien-3">🎧</div>
+                    <div class="lagu-info">
+                        <div class="lagu-judul">Love Story (Taylor's Version)</div>
+                        <div class="lagu-artis">Taylor Swift</div>
+                    </div>
+                    <span class="lagu-play">▶</span>
+                </a>
+
+                <a href="https://open.spotify.com/track/6lanRgr6wXibZr8KgzXxBl" target="_blank" class="lagu-item">
+                    <div class="lagu-icon gradien-4">🎼</div>
+                    <div class="lagu-info">
+                        <div class="lagu-judul">A Thousand Years</div>
+                        <div class="lagu-artis">Christina Perri</div>
+                    </div>
+                    <span class="lagu-play">▶</span>
+                </a>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 15px; color: #aaa;">Klik lagu untuk membuka di Spotify 🎧</p>
+        </div>
+
+        <!-- Section GALERI (BARU) -->
+        <div id="galeri" class="content-section">
+            <h2>📸 Galeri</h2>
+            <div class="galeri-grid">
+
+                <!-- Foto 1: Kenangan -->
+                <div>
+                    <div class="galeri-item">
+                        <img src="https://files.catbox.moe/8pqxrw.jpg" alt="Kenangan">
+                    </div>
+                    <div class="galeri-caption">Kenangan</div>
+                </div>
+
+                <!-- Foto 2: Masa Masa -->
+                <div>
+                    <div class="galeri-item">
+                        <img src="https://files.catbox.moe/fc55iv.jpg" alt="Masa Masa">
+                    </div>
+                    <div class="galeri-caption">Masa Masa</div>
+                </div>
+
+                <!-- Foto 3: Kenangan SMP -->
+                <div>
+                    <div class="galeri-item">
+                        <img src="https://files.catbox.moe/dmjyy0.jpg" alt="Kenangan SMP">
+                    </div>
+                    <div class="galeri-caption">Kenangan SMP</div>
+                </div>
+
+                <!-- Foto 4: Tongkrongan -->
+                <div>
+                    <div class="galeri-item">
+                        <img src="https://files.catbox.moe/fst1kd.jpg" alt="Tongkrongan">
+                    </div>
+                    <div class="galeri-caption">Tongkrongan</div>
+                </div>
+
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 15px; color: #aaa;">Tap foto untuk zoom 🔍</p>
+        </div>
+
+        <!-- Section Sosmed -->
+        <div id="sosmed" class="content-section">
+            <h2>🌐 Sosial Media</h2>
+            <div class="sosmed-list">
+                <a href="https://www.tiktok.com/@userjjgjkl?_r=1&_t=ZS-9A7CyfvUmmr" target="_blank" class="sosmed-item tiktok">
+                    <i>🎵</i> TikTok
+                </a>
+                <a href="https://www.instagram.com/adsty.lev?stkn=MTZnYXY5MWhxb2treA==" target="_blank" class="sosmed-item instagram">
+                    <i>📸</i> Instagram
+                </a>
+                <a href="https://t.me/@lipay666" target="_blank" class="sosmed-item telegram">
+                    <i>✈️</i> Telegram
+                </a>
+                <a href="https://wa.me/qr/YWQHANQFUT5II1" target="_blank" class="sosmed-item whatsapp">
+                    <i>💬</i> WhatsApp
+                </a>
+            </div>
+            <p style="font-size: 0.8rem; margin-top: 15px; color: #aaa;">Klik salah satu untuk membuka link</p>
+        </div>
+
+                <!-- MENU NAVIGASI (5 TOMBOL) -->
+        <div class="menu">
+            <button class="active" onclick="showSection('home', this)">
+                <span class="btn-text">🏠 HOME</span>
+            </button>
+            <button onclick="showSection('bio', this)">
+                <span class="btn-text">📋 BIO DATA</span>
+            </button>
+            <button onclick="showSection('lagu', this)">
+                <span class="btn-text">🎵 LAGU</span>
+            </button>
+            <button onclick="showSection('galeri', this)">
+                <span class="btn-text">📸 GALERI</span>
+            </button>
+            <button onclick="showSection('sosmed', this)">
+                <span class="btn-text">🌐 SOSMED</span>
+            </button>
+        </div>
+
+    </div>
+
+    <script>
+        function showSection(sectionId, btn) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            document.querySelectorAll('.menu button').forEach(button => {
+                button.classList.remove('active');
+            });
+            btn.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
